@@ -7,13 +7,15 @@ type ButtonProps = {
   title: string;
   number?: string;
   to?: string;
+  onClick?: () => void;
 };
 
-function Button({ icon, title, number, to }: ButtonProps) {
+function Button({ icon, title, number, to, onClick }: ButtonProps) {
   return (
     <Link
       href={to ?? ""}
       className={`rounded-sm hover:bg-red-50 cursor-pointer py-2 px-2 flex justify-between items-center`}
+      onClick={onClick}
     >
       <div className="flex items-center">
         {<Image src={icon} alt="" className="mr-1" />}
