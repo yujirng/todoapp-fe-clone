@@ -6,7 +6,7 @@ import Image from "next/image";
 
 interface ICategoryProps {
   title: string;
-  children: React.ReactNode;
+  children?: React.ReactNode;
   endButtonTitle?: string;
   className?: CSSProperties;
 }

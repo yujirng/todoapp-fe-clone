@@ -1,13 +1,34 @@
 "use client";
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import LinkButton from "../actions/linkbutton/linkbutton";
 import Image from "next/image";
 import plus from "@/assets/icons/plus.svg";
 import arrow_down from "@/assets/icons/arrow-down.svg";
 import hashtag from "@/assets/icons/hashtag.svg";
+import { useViewContext } from "@/context/viewcontext";
 
-function Projects() {
+import projectList from "@/data/test";
+import { IProjects } from "@/types";
+
+interface IProjectsProps {}
+
+function Projects({}: IProjectsProps) {
   const [isCollapse, setCollapse] = useState(false);
+  const [projects, setProjects] = useState<IProjects[]>([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch("http://localhost:3001/api/projects");
+        const jsonData = await response.json();
+        setProjects(jsonData);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   return (
     <div>
@@ -29,7 +50,17 @@ function Projects() {
         </div>
       </button>
       <div className={isCollapse ? "hidden" : "block"}>
-        <LinkButton icon={hashtag} title="Home" number="4" />
+        {/* <LinkButton icon={hashtag} title="Home" number="4" /> */}
+        {projects &&
+          projects.map((project, index) => (
+            <LinkButton
+              icon={hashtag}
+              key={index}
+              title={project.name}
+              number={project.tasks.length.toString()}
+              to={"/projects/" + project.id.toString()}
+            />
+          ))}
       </div>
     </div>
   );

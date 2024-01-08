@@ -1,0 +1,58 @@
+@font-face {font-family: "myicons";
+  src: url('/fonts/myicons.eot?t=1704108266666'); /* IE9*/
+  src: url('/fonts/myicons.eot?t=1704108266666#iefix') format('embedded-opentype'), /* IE6-IE8 */
+  url("/fonts/myicons.woff2?t=1704108266666") format("woff2"),
+  url("/fonts/myicons.woff?t=1704108266666") format("woff"),
+  url('/fonts/myicons.ttf?t=1704108266666') format('truetype'), /* chrome, firefox, opera, Safari, Android, iOS 4.2+*/
+  url('/fonts/myicons.svg?t=1704108266666#myicons') format('svg'); /* iOS 4.1- */
+}
+
+[class^="ico-"], [class*=" ico-"] {
+  font-family: 'myicons' !important;font-size: 16px;
+  font-style:normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.ico-add:before { content: "\ea01"; }
+.ico-arrow-down:before { content: "\ea02"; }
+.ico-bell:before { content: "\ea03"; }
+.ico-calendar:before { content: "\ea04"; }
+.ico-caret-down:before { content: "\ea05"; }
+.ico-category:before { content: "\ea06"; }
+.ico-clock:before { content: "\ea07"; }
+.ico-close:before { content: "\ea08"; }
+.ico-date:before { content: "\ea09"; }
+.ico-hashtag:before { content: "\ea0a"; }
+.ico-inbox:before { content: "\ea0b"; }
+.ico-options:before { content: "\ea0c"; }
+.ico-plus:before { content: "\ea0d"; }
+.ico-priority:before { content: "\ea0e"; }
+.ico-recurring_icon:before { content: "\ea0f"; }
+.ico-search:before { content: "\ea10"; }
+.ico-sidebar:before { content: "\ea11"; }
+.ico-silBvPn:before { content: "\ea12"; }
+.ico-three-dots:before { content: "\ea13"; }
+.ico-today:before { content: "\ea14"; }
+
+$ico-add: "\ea01";
+$ico-arrow-down: "\ea02";
+$ico-bell: "\ea03";
+$ico-calendar: "\ea04";
+$ico-caret-down: "\ea05";
+$ico-category: "\ea06";
+$ico-clock: "\ea07";
+$ico-close: "\ea08";
+$ico-date: "\ea09";
+$ico-hashtag: "\ea0a";
+$ico-inbox: "\ea0b";
+$ico-options: "\ea0c";
+$ico-plus: "\ea0d";
+$ico-priority: "\ea0e";
+$ico-recurring_icon: "\ea0f";
+$ico-search: "\ea10";
+$ico-sidebar: "\ea11";
+$ico-silBvPn: "\ea12";
+$ico-three-dots: "\ea13";
+$ico-today: "\ea14";
+

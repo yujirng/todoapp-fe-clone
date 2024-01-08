@@ -1,26 +1,20 @@
-import React, { FC, useState, useRef, useEffect, useCallback } from "react";
+"use client";
+import React, { FC, useState, useEffect, useCallback } from "react";
 import Header from "./header/header";
 import Projects from "./projects/projects";
 import Actions from "./actions/actions";
-import Image from "next/image";
 
-import sidebar from "@/assets/icons/sidebar.svg";
+import Icon from "../../common/icon";
 
-import Resizable from "./resizable";
+interface ISidebarProps {}
 
-interface ISidebarProps {
-  isSidebarCollapse?: boolean;
-  setSidebarCollapse: () => void;
-}
+const Sidebar: FC<ISidebarProps> = ({}) => {
+  const [isSidebarCollapse, setSidebarCollapse] = useState(true);
 
-const Sidebar: FC<ISidebarProps> = ({
-  isSidebarCollapse,
-  setSidebarCollapse,
-}) => {
   const [isResizing, setResizing] = useState(false);
-  const [sidebarWidth, setSidebarWidth] = useState(300);
-  const minWidth = 100;
-  const maxWidth = 500;
+  const [minWidth, setMinWidth] = useState(300);
+  const [maxWidth, setMaxWidth] = useState(450);
+  const [sidebarWidth, setSidebarWidth] = useState(minWidth);
 
   const handleMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
     setResizing(true);
@@ -34,7 +28,7 @@ const Sidebar: FC<ISidebarProps> = ({
         setSidebarWidth(newWidth);
       }
     },
-    [isResizing]
+    [isResizing, minWidth, maxWidth]
   );
 
   const handleMouseUp = () => {
@@ -42,6 +36,17 @@ const Sidebar: FC<ISidebarProps> = ({
   };
 
   useEffect(() => {
+    const updateDimensions = () => {
+      const windowWidth = window.innerWidth;
+      setMinWidth(windowWidth * (1 / 6));
+      // setSidebarWidth(windowWidth * (1 / 6));
+      setMaxWidth(windowWidth * (1.5 / 6));
+    };
+
+    updateDimensions();
+
+    // window.addEventListener("resize", updateDimensions);
+
     if (isResizing) {
       document.addEventListener("mousemove", handleMouseMove);
       document.addEventListener("mouseup", handleMouseUp);
@@ -72,27 +77,37 @@ const Sidebar: FC<ISidebarProps> = ({
     //     <Projects />
     //   </div>
     // </Resizable>
-
-    /**
-     * test
-     */
-
-    <div className="flex h-screen">
-      <div
-        className="px-2 bg-stone-100 h-full min-w-0 flex-shrink-0 relative"
-        style={{ width: `${sidebarWidth}px` }}
-      >
-        <div className="flex flex-col flex-1 overflow-hidden">
-          <Header />
-          <Actions />
-          <Projects />
+    <>
+      {!isSidebarCollapse && (
+        <div className="absolute p-1 left-3 top-3 hover:bg-slate-200 rounded-md">
+          <Icon
+            item={{
+              className: "ico-sidebar hover:cursor-pointer text-black-200",
+              size: 24,
+              onClick: () => setSidebarCollapse(!isSidebarCollapse),
+            }}
+          />
         </div>
+      )}
+      <div className={`${isSidebarCollapse ? "flex" : "hidden"} h-screen`}>
         <div
-          className={`absolute top-0 right-0 bottom-0 w-2 hover:bg-slate-200 cursor-col-resize`}
-          onMouseDown={(e) => handleMouseDown(e)}
-        ></div>
+          className="px-2 bg-stone-100 h-full min-w-0 flex-shrink-0 relative"
+          style={{ width: `${sidebarWidth}px` }}
+        >
+          <div className="flex flex-col flex-1 overflow-hidden">
+            <Header
+              onSidebarClick={() => setSidebarCollapse(!isSidebarCollapse)}
+            />
+            <Actions />
+            <Projects />
+          </div>
+          <div
+            className={`absolute top-0 right-0 bottom-0 w-2 hover:bg-slate-200 cursor-col-resize`}
+            onMouseDown={(e) => handleMouseDown(e)}
+          ></div>
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 

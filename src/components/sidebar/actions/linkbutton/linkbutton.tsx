@@ -7,7 +7,7 @@ type ButtonProps = {
   title: string;
   number?: string;
   to?: string;
-  onClick?: () => void;
+  onClick?: () => void | ((id: number | string) => void);
 };
 
 function Button({ icon, title, number, to, onClick }: ButtonProps) {

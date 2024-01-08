@@ -10,17 +10,17 @@ import {
 type View = {
   view: string;
   // setView: Dispatch<SetStateAction<string>>;
-  updateView: (view: string) => void;
+  updateView: (view: string | number) => void;
 };
 
 export const ViewContext = createContext<View | undefined>(undefined);
 
 export const ViewProvider = ({ children }: { children: ReactNode }) => {
-  console.log("view state is call");
-  const [view, setView] = useState("home");
+  const [view, setView] = useState("today");
 
-  const updateView = (view: string) => {
-    setView(view);
+  const updateView = (view: string | number) => {
+    if (typeof view === "string") setView(view);
+    else setView("project_" + view);
   };
 
   return (
